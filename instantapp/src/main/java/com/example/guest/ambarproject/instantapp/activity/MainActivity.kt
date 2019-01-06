@@ -1,7 +1,8 @@
-package com.example.guest.ambarproject.instantapp
+package com.example.guest.ambarproject.instantapp.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import com.example.guest.ambarproject.instantapp.R
 
 class MainActivity : AppCompatActivity() {
 
