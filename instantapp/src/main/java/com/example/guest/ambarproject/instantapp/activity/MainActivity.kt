@@ -2,14 +2,20 @@ package com.example.guest.ambarproject.instantapp.activity
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import com.example.guest.ambarproject.instantapp.R
+import com.example.guest.ambarproject.instantapp.adapter.RepositoryListAdapter
 import com.example.guest.ambarproject.instantapp.model.Repository
 import com.example.guest.ambarproject.instantapp.network.RetrofitInitializer
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mAdapter: RepositoryListAdapter
+    private lateinit var mRepositories: List<Repository>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +27,11 @@ class MainActivity : AppCompatActivity() {
                                     response: Response<List<Repository>?>?) {
 
                 response?.body()?.let {
-                    val reps: List<Repository> = it
-                    reps.forEach { println(it.full_name) }
+                    mRepositories = it
+                    mAdapter = RepositoryListAdapter(this@MainActivity)
+                    mAdapter.repositories = mRepositories
+                    rvRepoList.adapter = mAdapter
+                    rvRepoList.layoutManager = LinearLayoutManager(this@MainActivity)
                 }
             }
 

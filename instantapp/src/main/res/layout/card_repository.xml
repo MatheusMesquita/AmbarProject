@@ -1,84 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/cardRepository"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 	
-	<android.support.v7.widget.CardView
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:padding="4dp">
 		
-		<RelativeLayout
+		<ImageView
+			android:id="@+id/imgRepoUser"
+			android:layout_width="75dp"
+			android:layout_height="75dp"
+			android:layout_centerVertical="true"
+			android:src="@drawable/placeholder"
+			android:layout_marginEnd="8dp"/>
+		
+		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:padding="8dp">
+			android:layout_toEndOf="@+id/imgRepoUser"
+			android:orientation="vertical">
 			
-			<ImageView
-				android:id="@+id/imgRepoUser"
-				android:layout_width="75dp"
-				android:layout_height="75dp"
-				android:layout_centerVertical="true"
-				android:src="@drawable/placeholder"
-				android:layout_marginEnd="8dp"/>
-			
-			<LinearLayout
-				android:layout_width="match_parent"
+			<TextView
+				android:id="@+id/txtRepoFullName"
+				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_toEndOf="@+id/imgRepoUser"
-				android:orientation="vertical">
-				
-				<TextView
-					android:id="@+id/txtRepoFullName"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textSize="20sp"
-					android:textStyle="bold"
-					android:text="Nome / Repositorio"/>
-				
-				<TextView
-					android:id="@+id/txtRepoDescription"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="4dp"
-					android:layout_marginBottom="4dp"
-					android:justificationMode="inter_word"
-					android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a nibh libero. Vivamus condimentum eleifend arcu, non blandit sapien scelerisque feugiat. Mauris ut metus et orci aliquam bibendum in ac orci."/>
+				android:textSize="20sp"
+				android:textStyle="bold"
+				android:text="Nome / Repositorio"/>
 			
-				<LinearLayout
+			<TextView
+				android:id="@+id/txtRepoDescription"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:layout_marginBottom="4dp"
+				android:justificationMode="inter_word"
+				android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a nibh libero. Vivamus condimentum eleifend arcu, non blandit sapien scelerisque feugiat. Mauris ut metus et orci aliquam bibendum in ac orci."/>
+		
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:layout_gravity="end"
+				android:gravity="center_vertical">
+				
+				<ImageView
+					android:id="@+id/imgStar"
+					android:layout_width="12dp"
+					android:layout_height="12dp"
+					android:layout_marginEnd="2dp"
+					android:src="@drawable/star"/>
+				
+				<TextView
+					android:id="@+id/txtStars"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:orientation="horizontal"
-					android:layout_gravity="end"
-					android:gravity="center_vertical">
-					
-					<ImageView
-						android:id="@+id/imgStar"
-						android:layout_width="12dp"
-						android:layout_height="12dp"
-						android:layout_marginEnd="2dp"
-						android:src="@drawable/star"/>
-					
-					<TextView
-						android:id="@+id/txtStars"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:layout_marginEnd="8dp"
-						android:text="123"/>
-					
-					<ImageView
-						android:id="@+id/imgFork"
-						android:layout_width="12dp"
-						android:layout_height="12dp"
-						android:layout_marginEnd="2dp"
-						android:src="@drawable/fork"/>
-					
-					<TextView
-						android:id="@+id/txtForks"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="321"/>
-				</LinearLayout>
+					android:layout_marginEnd="8dp"
+					android:text="123"/>
+				
+				<ImageView
+					android:id="@+id/imgFork"
+					android:layout_width="12dp"
+					android:layout_height="12dp"
+					android:layout_marginEnd="2dp"
+					android:src="@drawable/fork"/>
+				
+				<TextView
+					android:id="@+id/txtForks"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="321"/>
 			</LinearLayout>
-		</RelativeLayout>
-	</android.support.v7.widget.CardView>
-</android.support.constraint.ConstraintLayout>
+		</LinearLayout>
+	</RelativeLayout>
+</android.support.v7.widget.CardView>
