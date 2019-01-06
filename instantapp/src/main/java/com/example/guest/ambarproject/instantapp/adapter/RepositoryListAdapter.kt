@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.guest.ambarproject.instantapp.R
 import com.example.guest.ambarproject.instantapp.model.Repository
+import com.squareup.picasso.Picasso
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -47,13 +48,14 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
     override fun onBindViewHolder(holder: RepositoryHolder, position: Int) {
         val repository = repositories[position]
 
+        Picasso.get().load(repository.owner.avatar_url).into(holder.imgUser)
         holder.txtFullName.text = repository.full_name
         holder.txtDescription.text = repository.description
         holder.txtStars.text = repository.stars.toString()
         holder.txtForks.text = repository.forks.toString()
 
         holder.card.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(repository.owner.html_url))
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(repository.html_url))
             context.startActivity(browserIntent)
         }
     }

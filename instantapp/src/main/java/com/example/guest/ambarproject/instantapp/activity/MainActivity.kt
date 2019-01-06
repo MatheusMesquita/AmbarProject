@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                                     response: Response<List<Repository>?>?) {
 
                 response?.body()?.let {
-                    mRepositories = it
+                    mRepositories = it.subList(0, 99)
                     mAdapter = RepositoryListAdapter(this@MainActivity)
                     mAdapter.repositories = mRepositories
                     rvRepoList.adapter = mAdapter
