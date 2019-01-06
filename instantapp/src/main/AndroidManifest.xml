@@ -3,7 +3,7 @@
           package="com.example.guest.ambarproject.instantapp">
 
     <application>
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
