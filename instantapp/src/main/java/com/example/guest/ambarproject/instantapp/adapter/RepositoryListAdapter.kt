@@ -13,7 +13,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.guest.ambarproject.instantapp.R
 import com.example.guest.ambarproject.instantapp.model.Repository
+import com.example.guest.ambarproject.instantapp.network.RetrofitInitializer
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
 import kotlin.properties.Delegates
 
@@ -51,8 +55,22 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
         Picasso.get().load(repository.owner.avatar_url).into(holder.imgUser)
         holder.txtFullName.text = repository.full_name
         holder.txtDescription.text = repository.description
-        holder.txtStars.text = repository.stars.toString()
-        holder.txtForks.text = repository.forks.toString()
+
+        val call = RetrofitInitializer().repoService().repository(repository.owner.login, repository.name)
+        call.enqueue(object: Callback<Repository> {
+            override fun onResponse(call: Call<Repository>?,
+                                    response: Response<Repository>?) {
+
+                response?.body()?.let {
+                    holder.txtStars.text = it.stargazers_count.toString()
+                    holder.txtForks.text = it.forks_count.toString()
+                }
+            }
+
+            override fun onFailure(call: Call<Repository>?,
+                                   t: Throwable?) {
+            }
+        })
 
         holder.card.setOnClickListener {
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(repository.html_url))
