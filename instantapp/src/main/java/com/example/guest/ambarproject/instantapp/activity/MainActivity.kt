@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         mRepositories = emptyList()
-
+        swipeRefresh.isRefreshing = true
         callRepos()
 
         mAdapter = RepositoryListAdapter(this@MainActivity)
