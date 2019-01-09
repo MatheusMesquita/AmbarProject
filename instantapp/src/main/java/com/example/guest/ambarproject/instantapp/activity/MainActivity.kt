@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        mRepositories = emptyList()
+
         val call = RetrofitInitializer().repoService().repositories()
         call.enqueue(object: Callback<List<Repository>> {
             override fun onResponse(call: Call<List<Repository>?>?,
@@ -28,10 +30,7 @@ class MainActivity : AppCompatActivity() {
 
                 response?.body()?.let {
                     mRepositories = it.subList(0, 99)
-                    mAdapter = RepositoryListAdapter(this@MainActivity)
                     mAdapter.repositories = mRepositories
-                    rvRepoList.adapter = mAdapter
-                    rvRepoList.layoutManager = LinearLayoutManager(this@MainActivity)
                 }
             }
 
@@ -40,5 +39,9 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        mAdapter = RepositoryListAdapter(this@MainActivity)
+        mAdapter.repositories = mRepositories
+        rvRepoList.adapter = mAdapter
+        rvRepoList.layoutManager = LinearLayoutManager(this@MainActivity)
     }
 }

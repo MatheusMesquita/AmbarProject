@@ -40,7 +40,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginTop="4dp"
-				android:layout_marginBottom="4dp"
+				android:layout_marginBottom="24dp"
 				android:justificationMode="inter_word"
 				android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a nibh libero. Vivamus condimentum eleifend arcu, non blandit sapien scelerisque feugiat. Mauris ut metus et orci aliquam bibendum in ac orci."/>
 		
@@ -48,7 +48,6 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
-				android:layout_gravity="end"
 				android:gravity="center_vertical">
 				
 				<ImageView
