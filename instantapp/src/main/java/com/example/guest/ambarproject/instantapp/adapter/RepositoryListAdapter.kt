@@ -31,31 +31,7 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
         autoNotify(oldList, newList) { (id), (id1) -> id == id1 }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryHolder {
-        val view: View = LayoutInflater.from(context).inflate(R.layout.card_repository, parent, false)
-        return RepositoryHolder(view)
-    }
-
-    override fun getItemCount() = repositories.size
-
-    override fun onBindViewHolder(holder: RepositoryHolder, position: Int, payloads: MutableList<Any>) {
-        if (payloads.isEmpty())
-            onBindViewHolder(holder, position)
-        else {
-            //TODO
-            val repository = repositories[position]
-
-            for (itemChangeList in payloads as MutableList<ArrayList<String>>) {
-                if (itemChangeList.contains("name_update")) {
-
-                }
-            }
-        }
-    }
-
-    override fun onBindViewHolder(holder: RepositoryHolder, position: Int) {
-        val repository = repositories[position]
-
+    private fun setImage(repository: Repository, holder: RepositoryHolder) {
         Picasso
             .get()
             .load(repository.owner.avatar_url)
@@ -73,6 +49,45 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
                     holder.imgUser.setImageResource(R.drawable.placeholder)
                 }
             })
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryHolder {
+        val view: View = LayoutInflater.from(context).inflate(R.layout.card_repository, parent, false)
+        return RepositoryHolder(view)
+    }
+
+    override fun getItemCount() = repositories.size
+
+    override fun onBindViewHolder(holder: RepositoryHolder, position: Int, payloads: MutableList<Any>) {
+        if (payloads.isEmpty())
+            onBindViewHolder(holder, position)
+        else {
+            val repository = repositories[position]
+
+            for (itemChangeList in payloads as MutableList<ArrayList<String>>) {
+                if (itemChangeList.contains("img_update"))
+                    setImage(repository, holder)
+
+                if (itemChangeList.contains("name_update"))
+                    holder.txtFullName.text = repository.full_name
+
+                if (itemChangeList.contains("description_update"))
+                    holder.txtDescription.text = repository.description
+
+                if (itemChangeList.contains("stars_update"))
+                    holder.txtStars.text = repository.stargazers_count.toString()
+
+                if (itemChangeList.contains("forks_update"))
+                    holder.txtForks.text = repository.forks_count.toString()
+
+            }
+        }
+    }
+
+    override fun onBindViewHolder(holder: RepositoryHolder, position: Int) {
+        val repository = repositories[position]
+
+        setImage(repository, holder)
         holder.txtFullName.text = repository.full_name
         holder.txtDescription.text = repository.description
 
@@ -123,8 +138,11 @@ fun RecyclerView.Adapter<*>.autoNotify(oldList: List<Repository>, newList: List<
             val oldItem = oldList[oldItemPosition]
             val newItem = newList[newItemPosition]
 
-            return (oldItem.id == newItem.id &&
-                    oldItem.name == newItem.name)
+            return (oldItem.owner.avatar_url == newItem.owner.avatar_url &&
+                    oldItem.full_name == newItem.full_name &&
+                    oldItem.description == newItem.description &&
+                    oldItem.stargazers_count == newItem.stargazers_count &&
+                    oldItem.forks_count == newItem.forks_count)
         }
 
         override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
@@ -132,8 +150,11 @@ fun RecyclerView.Adapter<*>.autoNotify(oldList: List<Repository>, newList: List<
             val newItem = newList[newItemPosition]
             val itemChangeList = ArrayList<String>()
 
-            //TODO set possible changes to card
-            if (oldItem.name != newItem.name) itemChangeList.add("name_update")
+            if (oldItem.owner.avatar_url != newItem.owner.avatar_url) itemChangeList.add("img_update")
+            if (oldItem.full_name != newItem.full_name) itemChangeList.add("name_update")
+            if (oldItem.description != newItem.description) itemChangeList.add("description_update")
+            if (oldItem.stargazers_count != newItem.stargazers_count) itemChangeList.add("stars_update")
+            if (oldItem.forks_count != newItem.forks_count) itemChangeList.add("forks_update")
 
             return itemChangeList
         }
