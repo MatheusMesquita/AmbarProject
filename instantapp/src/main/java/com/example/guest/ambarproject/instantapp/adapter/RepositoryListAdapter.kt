@@ -5,10 +5,10 @@ import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.CardView
-import android.support.v7.widget.RecyclerView
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.recyclerview.widget.DiffUtil
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +25,7 @@ import java.util.*
 import kotlin.properties.Delegates
 
 
-class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<RepositoryListAdapter.RepositoryHolder>() {
+class RepositoryListAdapter(val context: Context) : androidx.recyclerview.widget.RecyclerView.Adapter<RepositoryListAdapter.RepositoryHolder>() {
 
     var repositories: List<Repository> by Delegates.observable(emptyList()) { _, oldList, newList ->
         autoNotify(oldList, newList) { (id), (id1) -> id == id1 }
@@ -113,8 +113,8 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
         }
     }
 
-    inner class RepositoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var card: CardView = itemView.findViewById(R.id.cardRepository)
+    inner class RepositoryHolder(itemView: View) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView) {
+        var card: androidx.cardview.widget.CardView = itemView.findViewById(R.id.cardRepository)
         var imgUser: ImageView = itemView.findViewById(R.id.imgRepoUser)
         var txtFullName: TextView = itemView.findViewById(R.id.txtRepoFullName)
         var txtDescription: TextView = itemView.findViewById(R.id.txtRepoDescription)
@@ -123,7 +123,7 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
     }
 }
 
-fun RecyclerView.Adapter<*>.autoNotify(oldList: List<Repository>, newList: List<Repository>, compare: (Repository, Repository) -> Boolean) {
+fun androidx.recyclerview.widget.RecyclerView.Adapter<*>.autoNotify(oldList: List<Repository>, newList: List<Repository>, compare: (Repository, Repository) -> Boolean) {
 
     val diff = DiffUtil.calculateDiff(object : DiffUtil.Callback() {
 

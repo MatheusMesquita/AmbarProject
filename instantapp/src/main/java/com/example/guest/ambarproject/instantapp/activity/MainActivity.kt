@@ -1,8 +1,8 @@
 package com.example.guest.ambarproject.instantapp.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.Toast
 import com.example.guest.ambarproject.instantapp.R
 import com.example.guest.ambarproject.instantapp.adapter.RepositoryListAdapter
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         mAdapter = RepositoryListAdapter(this@MainActivity)
         mAdapter.repositories = mRepositories
         rvRepoList.adapter = mAdapter
-        rvRepoList.layoutManager = LinearLayoutManager(this@MainActivity)
+        rvRepoList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@MainActivity)
 
         swipeRefresh.setOnRefreshListener {
             callRepos()
