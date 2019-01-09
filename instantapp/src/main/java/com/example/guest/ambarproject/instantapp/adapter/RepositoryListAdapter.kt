@@ -2,7 +2,10 @@ package com.example.guest.ambarproject.instantapp.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -20,6 +23,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import kotlin.properties.Delegates
+
 
 class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<RepositoryListAdapter.RepositoryHolder>() {
 
@@ -52,7 +56,23 @@ class RepositoryListAdapter(val context: Context) : RecyclerView.Adapter<Reposit
     override fun onBindViewHolder(holder: RepositoryHolder, position: Int) {
         val repository = repositories[position]
 
-        Picasso.get().load(repository.owner.avatar_url).into(holder.imgUser)
+        Picasso
+            .get()
+            .load(repository.owner.avatar_url)
+            .placeholder(R.drawable.placeholder)
+            .into(holder.imgUser, object : com.squareup.picasso.Callback {
+                override fun onSuccess() {
+                    val imageBitmap = (holder.imgUser.drawable as BitmapDrawable).bitmap
+                    val imageDrawable = RoundedBitmapDrawableFactory.create(Resources.getSystem(), imageBitmap)
+                    imageDrawable.isCircular = true
+                    imageDrawable.cornerRadius = Math.max(imageBitmap.width, imageBitmap.height) / 2.0f
+                    holder.imgUser.setImageDrawable(imageDrawable)
+                }
+
+                override fun onError(e: Exception?) {
+                    holder.imgUser.setImageResource(R.drawable.placeholder)
+                }
+            })
         holder.txtFullName.text = repository.full_name
         holder.txtDescription.text = repository.description
 
