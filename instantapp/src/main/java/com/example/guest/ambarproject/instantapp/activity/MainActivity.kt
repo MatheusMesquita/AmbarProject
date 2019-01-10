@@ -1,9 +1,9 @@
 package com.example.guest.ambarproject.instantapp.activity
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.example.guest.ambarproject.instantapp.R
 import com.example.guest.ambarproject.instantapp.adapter.RepositoryListAdapter
 import com.example.guest.ambarproject.instantapp.model.Repository
@@ -30,10 +30,17 @@ class MainActivity : AppCompatActivity() {
         mAdapter.repositories = mRepositories
         rvRepoList.adapter = mAdapter
         rvRepoList.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this@MainActivity)
+        rvRepoList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) fab.hide()
+                else if (dy <= 0) fab.show()
+            }
+        })
 
-        swipeRefresh.setOnRefreshListener {
-            callRepos()
-        }
+        fab.setOnClickListener { rvRepoList.smoothScrollToPosition(0) }
+
+        swipeRefresh.setOnRefreshListener { callRepos() }
     }
 
     private fun callRepos() {

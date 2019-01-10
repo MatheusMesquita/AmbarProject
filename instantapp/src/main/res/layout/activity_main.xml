@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="#e4e4e4"
         tools:context=".activity.MainActivity">
     
@@ -18,4 +19,19 @@
             android:layout_height="wrap_content"
             android:id="@+id/rvRepoList"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/up"
+            android:visibility="invisible"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/swipeRefresh"
+            app:layout_anchor="@id/swipeRefresh"
+            app:layout_anchorGravity="bottom|end"
+            app:fabSize="mini"
+            app:layout_constraintBottom_toBottomOf="@+id/swipeRefresh"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
